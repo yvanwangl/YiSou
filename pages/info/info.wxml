@@ -1,0 +1,7 @@
+<!--info.wxml-->
+<view class="container log-list">
+  <view>
+    应用详情页面：
+    {{programInfo.name}}--{{programInfo.info}}
+  </view>
+</view>

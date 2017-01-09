@@ -1,0 +1,11 @@
+<!--logs.wxml-->
+<view class="container log-list">
+应用详情页面：
+  <view>
+    应用详情页面：
+    {{programInfo.name}}--{{programInfo.info}}
+  </view>
+  <block wx:for="{{logs}}" wx:for-item="log" wx:key="*this">
+    <text class="log-item">{{index + 1}}. {{log}}</text>
+  </block>
+</view>
