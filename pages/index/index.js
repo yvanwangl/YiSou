@@ -75,13 +75,52 @@ Page({
             }
           ]
         }
-      ]
+      ],
+      arrayPicker: ['美国', '中国', '巴西', '日本'],
+      index: 0,
+      time:'12:01',
+      date:'2016-01-05',
+      blogs:[]
+  },
+  bindPickerChange:function(e){
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      index: e.detail.value
+    })
+  },
+  bindTimeChange: function(e){
+    this.setData({
+      time: e.detail.value
+    });
+  },
+  bindDateChange: function(e){
+    this.setData({
+      date: e.detail.value
+    });
+  },
+  formSubmit: function(e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+  },
+  formReset: function() {
+    console.log('form发生了reset事件')
   },
   //监听页面加载
   onLoad: function(){
     console.log("Index page onload!");
     var me = this;
     app.getUserInfo((userInfo)=>me.setData({userInfo}));
+    wx.request({
+      url: 'https://blog.yvanwang.com/blog?is_login=false&type=all&page=1&authCookie=', //仅为示例，并非真实的接口地址
+      header: {
+          'content-type': 'application/json'
+      },
+      success: function(res) {
+        console.log(res.data)
+        me.setData({
+          blogs:res.data.blogs
+        });
+      }
+    })
   },
   //监听页面初次渲染完成
   onReady: function(){
@@ -124,13 +163,71 @@ Page({
         name: targetName,
         info:"这是这个app的介绍啊，看好了了！！！"
       });
-      wx.navigateTo({
-        url: '../logs/logs'
-      })
-      wx.switchTab({
-        url: '../info/info'
-      })
-      
+      // wx.navigateTo({
+      //   url: '../info/info'
+      // })
+
+      wx.showActionSheet({
+        itemList: ['A', 'B', 'C'],
+        success: function(res) {
+          if(res.tapIndex==2){
+            // wx.showModal({
+            //   title: '提示',
+            //   content: targetName,
+            //   success: function(res) {
+            //     if (res.confirm) {
+            //       console.log('用户点击确定')
+            //     }
+            //   }
+            // });
+            // wx.chooseImage({
+            //   count: 1, // 默认9
+            //   sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            //   sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+            //   success: function (res) {
+            //     // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+            //     var tempFilePaths = res.tempFilePaths
+            //   }
+            // })
+            wx.getLocation({
+              type: 'wgs84',
+              success: function({latitude,longitude,speed,accuracy}) {
+                // var latitude = res.latitude
+                // var longitude = res.longitude
+                // var speed = res.speed
+                // var accuracy = res.accuracy
+                wx.showModal({
+                  title: '提示',
+                  content: latitude+"--"+longitude+"--"+speed+"--"+accuracy,
+                  success: function(res) {
+                    if (res.confirm) {
+                      console.log('用户点击确定')
+                    }
+                  }
+                });
+              }
+            });
+            // wx.chooseLocation({
+
+            // });
+            wx.getLocation({
+              type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+              success: function(res) {
+                var latitude = res.latitude
+                var longitude = res.longitude
+                wx.openLocation({
+                  latitude: latitude,
+                  longitude: longitude,
+                  scale: 28
+                })
+              }
+            })
+          }
+        },
+        fail: function(res) {
+          console.log(res.errMsg)
+        }
+      });
   },
   primary: function(){
     wx.chooseImage({

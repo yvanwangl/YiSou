@@ -17,6 +17,23 @@
       </view>
     </block>
   </view>-->
+  <view wx:for="{{blogs}}" wx:key="{{index}}" class="blogItem">
+    <view class="blogTitle">
+      {{item.title}}
+    </view>
+    <view class="planit">
+      {{item.plaintext}}
+    </view>
+    <view class="authorInfo">
+      <view>
+        作者：{{item.author}}
+      </view>
+      <view class="count">
+        浏览：{{item.count}}
+      </view>
+    </view>
+  </view>
+
   <view class="{{index==array.length-1?'itemWrap last':'itemWrap'}}" wx:for="{{array}}">
     <view>
       <view class="itemTitle">
@@ -29,4 +46,58 @@
       </view>
     </view>
   </view>
+  <view class="section">
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{arrayPicker}}">
+      <view class="picker">
+        {{arrayPicker[index]}}
+      </view>
+    </picker>
+  </view>
+  <view class="section">
+    <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+      <view class="picker">
+        {{time}}
+      </view>
+    </picker>
+  </view>
+  <view class="section">
+    <picker mode="date" value="{{date}}" start="2016-01-01" end="2016-12-12" bindchange="bindDateChange">
+      <view class="picker">
+        {{date}}
+      </view>
+    </picker>
+  </view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="section section_gap">
+      <view class="section__title">switch</view>
+      <switch name="switch"/>
+    </view>
+    <view class="section section_gap">
+      <view class="section__title">slider</view>
+      <slider name="slider" show-value ></slider>
+    </view>
+
+    <view class="section">
+      <view class="section_gap">input</view>
+      <input name="input" placeholder="please input here" />
+    </view>
+    <view class="section section_gap">
+      <view class="section__title">radio</view>
+      <radio-group name="radio-group">
+        <label><radio value="radio1"/>radio1</label>
+        <label><radio value="radio2"/>radio2</label>
+      </radio-group>
+    </view>
+    <view class="section section_gap">
+      <view class="section__title">checkbox</view>
+      <checkbox-group name="checkbox">
+        <label><checkbox value="checkbox1"/>checkbox1</label>
+        <label><checkbox value="checkbox2"/>checkbox2</label>
+      </checkbox-group>
+    </view>
+    <view class="btn-area">
+      <button formType="submit">Submit</button>
+      <button formType="reset">Reset</button>
+    </view>
+  </form>
 </view>

@@ -13,8 +13,8 @@ App({
   onHide: function(){
     console.log("I am Hide")
   },
-  onError: function(){
-    console.log("I have an error")
+  onError: function(e){
+    console.log(e)
   },
   getUserInfo:function(cb){
     var that = this

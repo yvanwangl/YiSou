@@ -8,32 +8,8 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#000",
     "navigationBarTextStyle":"#fff",
-    "enablePullDownRefresh":true
+    "enablePullDownRefresh":false
   },
-  "tabBar": {
-    "color":"#999",
-    "selectedColor": "#000",
-    "backgroundColor":"#fff",
-    "list": [
-        {
-          "pagePath": "pages/index/index",
-          "text": "首页",
-          "iconPath": "iconPath",
-          "selectedIconPath": "selectedIconPath"
-        },
-        {
-          "pagePath": "pages/info/info",
-          "text": "详情",
-          "iconPath": "iconPath",
-          "selectedIconPath": "selectedIconPath"
-        },
-        {
-          "pagePath": "pages/logs/logs",
-          "text": "日志",
-          "iconPath": "iconPath",
-          "selectedIconPath": "selectedIconPath"
-        }
-    ]
-  },
+  
   "debug":false
 }
