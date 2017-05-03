@@ -99,7 +99,49 @@ Page({
     });
   },
   formSubmit: function(e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    wx.showModal({
+      title:"微信授权",
+      content:"墨点申请获得以下授权：获取你的公开信息（昵称、头像等）",
+      cancelText:"拒绝",
+      confirmText:"允许",
+      success: function(res){
+        if(res.confirm){
+          wx.login({
+            success: function(res){
+              wx.getUserInfo({
+                success: function(res){
+                  wx.showModal({
+                    title:"授权成功",
+                    content:JSON.stringify(res)
+                  });
+                },
+                fail: function(res) {
+                  // fail
+                },
+                complete: function(res) {
+                  // complete
+                }
+              })
+            
+            },
+            fail: function(res) {
+              wx.showModal({
+                title:"提示信息",
+                content:"fail"
+              });
+            },
+            complete: function(res) {
+              wx.showModal({
+                title:"提示信息complete",
+                content:JSON.stringify(res)
+              });
+            }
+          })
+        }
+      
+      }
+    });
+    
   },
   formReset: function() {
     console.log('form发生了reset事件')
